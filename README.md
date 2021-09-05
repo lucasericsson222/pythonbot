@@ -10,9 +10,13 @@ Ex.
 * * * *
 
 Secondly, it responds to specific word phrases:
+
 Marquez -> "\* Marcus"
+
 Thomas -> "You mean the choo-choo guy?"
+
 economy -> "is useless"
+
 And you and I -> text in the .env file
 
 Thirdly, if someone says a swear word, the bot responds "no u" 
