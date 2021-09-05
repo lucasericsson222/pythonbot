@@ -4,10 +4,10 @@ Python bot does many things!
 Firstly, any time someone types an integer, it creates a pyramid with the height of that integer!
 Ex.
 4
-   *
-  * *
- * * *
-* * * *
+   \*
+  \* \*
+ \* \* \*
+\* \* \* \*
 
 Secondly, it responds to specific word phrases:
 
