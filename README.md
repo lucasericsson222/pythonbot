@@ -27,3 +27,5 @@ And you and I -> text in the .env file
 Thirdly, if someone says a swear word, the bot responds "no u" 
 
 Fourthly, if the user in the .env file says "tall" it responds "short."
+
+Fifthly, you can google and get the first top search result by using the command $google [search]
