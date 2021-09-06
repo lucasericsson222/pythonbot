@@ -1,11 +1,16 @@
 # bot.py
-
+import discord
 import os
 
-import discord
-from discord import channel
-from dotenv import load_dotenv
 
+from discord import channel
+from discord.ext import commands
+from dotenv import load_dotenv
+try:
+    from googlesearch import search
+except ImportError:
+    print("No module named 'google' found")
+ 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
@@ -36,6 +41,7 @@ async def on_message(message):
     if message.author != client.user:
         await word_check(message)
         await pyramid(message)
+        await commands(message)
     if message.author.id == TALLIDM: 
         if "tall" in message.content or "Tall" in message.content:
             await message.reply("short.")
@@ -55,6 +61,19 @@ async def word_check(message):
         await message.reply("You mean the choo-choo guy?")
     if "And You and I" in message.content:
          await recursive_send(andyouanditext,message)
+
+async def commands(message):
+    if message.content.startswith("$google"):
+        for j in search(message.content.removeprefix("$google"), tld="co.in", num=1, stop=1, pause=2):
+            await message.reply(j)
+#bot = commands.Bot(command_prefix='$')
+#@bot.command()
+#async def ping(ctx, query):
+#    for j in search(query, tld="co.in", num=1, stop=10, pause=2):
+#        await ctx.channel.send(j)
+
+
+
 
 async def pyramid(message):
     if message.content.isdigit():
@@ -76,6 +95,6 @@ async def recursive_send(q, message):
         await recursive_send("```" + q[len(q)//2:], message)
     else:
         await message.reply(q)
+#client.run(TOKEN)
 client.run(TOKEN)
-
 
