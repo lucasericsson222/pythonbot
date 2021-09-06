@@ -1,7 +1,7 @@
 # bot.py
 import discord
 import os
-
+import re
 
 from discord import channel
 from discord.ext import commands
@@ -16,11 +16,17 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 CHANNEL = os.getenv('DISCORD_CHANNEL')
 TALLIDM = os.getenv('TALLIDMI')
-andyouanditext = os.getenv('ANDYOUANDITEXT')
+ANDYOUANDITEXT = os.getenv('ANDYOU')
 client = discord.Client()
+
+
+def findWholeWord(w):
+    return re.compile(r'\b({0})\b'.format(w), flags=re.IGNORECASE).search
+
 
 @client.event
 async def on_ready():
+    print(ANDYOUANDITEXT)
     # code for seeing if it is on the right server
     for guild in client.guilds:
         if guild.name == GUILD:
@@ -51,7 +57,7 @@ async def on_message(message):
 
 async def word_check(message):
     for word in banned_words:
-        if word in message.content.lower():
+        if findWholeWord(word)(message.content):
             await message.reply("no u")
     if "Marquez" in message.content or "marquez" in message.content:
         await message.reply("*Marcus")
@@ -59,8 +65,8 @@ async def word_check(message):
         await message.reply("is useless")
     if "Thomas" in message.content:
         await message.reply("You mean the choo-choo guy?")
-    if "And You and I" in message.content:
-         await recursive_send(andyouanditext,message)
+    if "And You and I".lower() in message.content.lower():
+         await message.reply(ANDYOUANDITEXT)
 
 async def commands(message):
     if message.content.startswith("$google"):
@@ -95,6 +101,7 @@ async def recursive_send(q, message):
         await recursive_send("```" + q[len(q)//2:], message)
     else:
         await message.reply(q)
+
 #client.run(TOKEN)
 client.run(TOKEN)
 
