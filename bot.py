@@ -6,6 +6,8 @@ import re
 from discord import channel
 from discord.ext import commands
 from dotenv import load_dotenv
+from random import randint, seed
+from random import random
 try:
     from googlesearch import search
 except ImportError:
@@ -59,8 +61,8 @@ async def word_check(message):
     for word in banned_words:
         if findWholeWord(word)(message.content):
             await message.reply("no u")
-    if "Marquez" in message.content or "marquez" in message.content:
-        await message.reply("*Marcus")
+#    if "Marquez" in message.content or "marquez" in message.content:
+ #       await message.reply("*Marcus")
     if "economy" in message.content:
         await message.reply("is useless")
     if "Thomas" in message.content:
@@ -72,8 +74,32 @@ async def commands(message):
     if message.content.startswith("$google"):
         for j in search(message.content.removeprefix("$google"), tld="co.in", num=1, stop=1, pause=2):
             await message.reply(j)
+    if message.content.startswith("$magic8"):
+        q = ""
+        v = randint(0,9)
+        if v == 0:
+                q = "No"
+        if v == 1:
+                q = "Yes"
+        if v == 2:
+                q = "Possibly"
+        if v == 3:
+                q = "As likely as the moon touching the Earth"
+        if v == 4:
+                q = "Try again later"
+        if v == 5:
+                q = "hmmmmmmmm"
+        if v == 6:
+                q = "Ask a 6 sided dice"
+        if v == 7:
+                q = "The opposite of the next result is the answer you seek"
+        if v == 8:
+                q = "I'm not going to answer that"
+        if v == 9: 
+                q = "Yes AND no"
+        await message.reply(q)
 #bot = commands.Bot(command_prefix='$')
-#@bot.command()
+#@bot.command()s
 #async def ping(ctx, query):
 #    for j in search(query, tld="co.in", num=1, stop=10, pause=2):
 #        await ctx.channel.send(j)
