@@ -123,6 +123,25 @@ async def commands(message):
         with open('responses.json', 'w') as outfile:
             json.dump(data, outfile, indent = 6)
         outfile.close()
+    if message.content.startswith("$removetrigger "):
+        f = open('responses.json',)
+  
+        # returns JSON object as 
+        # a dictionary
+        data = json.load(f)
+  
+        # Iterating through the json
+        # list
+        for i in data:
+            if i in message.content.lower():
+                if message.content.removeprefix("$removetrigger ") == i:
+                    data.pop(i)
+                    await message.reply("the phrase has been removed")
+                    f.close()
+                    with open('responses.json', 'w') as outfile:
+                        json.dump(data, outfile, indent = 6)
+                    outfile.close()
+                    return
 #bot = commands.Bot(command_prefix='$')
 #@bot.command()s
 #async def ping(ctx, query):
