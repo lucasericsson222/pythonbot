@@ -12,7 +12,7 @@ try:
     from googlesearch import search
 except ImportError:
     print("No module named 'google' found")
- 
+import json
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
@@ -61,15 +61,21 @@ async def word_check(message):
     for word in banned_words:
         if findWholeWord(word)(message.content):
             await message.reply("no u")
+    f = open('responses.json',)
+  
+    # returns JSON object as 
+    # a dictionary
+    data = json.load(f)
+  
+    # Iterating through the json
+    # list
+    for i in data:
+        if i in message.content.lower():
+            await message.reply(data[i])
+    f.close()
 #    if "Marquez" in message.content or "marquez" in message.content:
  #       await message.reply("*Marcus")
-    if "economy" in message.content:
-        await message.reply("is useless")
-    if "Thomas" in message.content:
-        await message.reply("You mean the choo-choo guy?")
-    if "And You and I".lower() in message.content.lower():
-         await message.reply(ANDYOUANDITEXT)
-
+    
 async def commands(message):
     if message.content.startswith("$google"):
         for j in search(message.content.removeprefix("$google"), tld="co.in", num=1, stop=1, pause=2):
@@ -98,6 +104,7 @@ async def commands(message):
         if v == 9: 
                 q = "Yes AND no"
         await message.reply(q)
+    
 #bot = commands.Bot(command_prefix='$')
 #@bot.command()s
 #async def ping(ctx, query):
