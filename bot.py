@@ -115,6 +115,7 @@ async def commands(message):
         # list
         for i in data:
             if i in message.content.lower():
+                message.reply("this phrase is already used")
                 return
         if message.content.removeprefix("$addtrigger ").partition(":")[1]:
             data[message.content.removeprefix("$addtrigger ").partition(":")[0]] = message.content.removeprefix("$addtrigger ").partition(":")[2]
