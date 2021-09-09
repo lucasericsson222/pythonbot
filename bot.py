@@ -104,7 +104,24 @@ async def commands(message):
         if v == 9: 
                 q = "Yes AND no"
         await message.reply(q)
-    
+    if message.content.startswith("$addtrigger "):
+        f = open('responses.json',)
+  
+        # returns JSON object as 
+        # a dictionary
+        data = json.load(f)
+  
+        # Iterating through the json
+        # list
+        for i in data:
+            if i in message.content.lower():
+                return
+        if message.content.removeprefix("$addtrigger ").partition(":")[1]:
+            data[message.content.removeprefix("$addtrigger ").partition(":")[0]] = message.content.removeprefix("$addtrigger ").partition(":")[2]
+        f.close()
+        with open('responses.json', 'w') as outfile:
+            json.dump(data, outfile, indent = 6)
+        outfile.close()
 #bot = commands.Bot(command_prefix='$')
 #@bot.command()s
 #async def ping(ctx, query):
