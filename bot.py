@@ -13,11 +13,11 @@ try:
 except ImportError:
     print("No module named 'google' found")
 import json
-load_dotenv()
+load_dotenv(override=True)
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 CHANNEL = os.getenv('DISCORD_CHANNEL')
-TALLIDM = os.getenv('TALLIDMI')
+ALLQ = os.getenv('ALL')
 ANDYOUANDITEXT = os.getenv('ANDYOU')
 client = discord.Client()
 
@@ -28,7 +28,6 @@ def findWholeWord(w):
 
 @client.event
 async def on_ready():
-    print(ANDYOUANDITEXT)
     # code for seeing if it is on the right server
     for guild in client.guilds:
         if guild.name == GUILD:
@@ -50,9 +49,9 @@ async def on_message(message):
         await word_check(message)
         await pyramid(message)
         await commands(message)
-    if message.author.id == TALLIDM: 
-        if "tall" in message.content or "Tall" in message.content:
-            await message.reply("short.")
+        if int(message.author.id) == int(ALLQ): 
+            if "tall" in message.content or "Tall" in message.content:
+                 await message.reply("short.")
     if client.user.mentioned_in(message):
         await message.reply("kk")
 
